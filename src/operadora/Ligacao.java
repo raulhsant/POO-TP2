@@ -9,7 +9,6 @@ public class Ligacao {
 	private double valor;
 //	private Integer destinatario;
 	
-	
 	public Date getData() {
 		return data;
 	}
@@ -41,8 +40,16 @@ public class Ligacao {
 		this.duracao = duracao;
 		this.valor = valor;
 	}
+	
 	public Ligacao() {
 		super();
 	}
+	
+	@Override
+	public String toString() {
+		return "Ligacao [data=" + data + ", duracao=" + duracao + ", valor=" + valor + "]";
+	}
+	
+	
 
 }
