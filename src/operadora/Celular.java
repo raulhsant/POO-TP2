@@ -1,5 +1,6 @@
 package operadora;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Celular {
 
 	private Cliente cliente;
 	private List<Ligacao> ligacoes;
-	private String numero;
+	private Integer numero;
 	private Date validade;
 	private double valor;
 	
@@ -23,10 +24,10 @@ public class Celular {
 	public void setLigacoes(List<Ligacao> ligacoes) {
 		this.ligacoes = ligacoes;
 	}
-	public String getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
-	public void setNumero(String numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}	
 	public Date getValidade() {
@@ -42,7 +43,7 @@ public class Celular {
 		this.valor = valor;
 	}
 	
-	public Celular(Cliente cliente, List<Ligacao> ligacoes, String numero) {
+	public Celular(Cliente cliente, List<Ligacao> ligacoes, Integer numero) {
 		super();
 		this.cliente = cliente;
 		this.ligacoes = ligacoes;
@@ -51,14 +52,16 @@ public class Celular {
 	
 	public Celular() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.ligacoes =  new ArrayList<Ligacao>();
 	}
 	
 	@Override
 	public String toString() {
-		return "Celular [cliente=" + cliente + ", ligacoes=" + ligacoes + ", numero=" + numero + "]";
+		return "Celular [cliente=" + cliente + ", ligacoes=" + ligacoes + ", numero=" + numero + ", validade="
+				+ validade + ", valor=" + valor + "]";
 	}
 	
+
 	
 	
 	
