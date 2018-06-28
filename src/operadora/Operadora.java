@@ -98,14 +98,30 @@ public class Operadora implements Serializable{
 	}
 	
 	
-	public void adicionarCelular(String tipo, Plano plano, Cliente cliente, Integer validade) throws Exception {
-		
+//	public void adicionarCelular(String tipo, Plano plano, Cliente cliente, Integer validade) throws Exception {
+	public void adicionarCelular(String tipo, String nomePlano, String cpfCnpj, Integer validade) throws Exception {
+
 		Celular celular;
-		
-		if(!clientes.contains(cliente))
+		Plano plano = null;
+		Cliente cliente = null;
+
+		for (Plano planoFinder : this.planos){
+			if(planoFinder.getNome().equals(nomePlano)){
+				plano = planoFinder;
+			}
+		}
+
+		for(Cliente clienteFinder : this.clientes){
+			if(clienteFinder.getCpfCnpj().equals(cpfCnpj)){
+				cliente = clienteFinder;
+			}
+
+		}
+
+		if(cliente == null)
 			throw new ClienteException("Cliente não encontrado");
 		
-		if (!this.planos.contains(plano))
+		if (plano == null)
 			throw new PlanoException("Plano não existe.");
 		else {
 			if (tipo.equals("Cartao")) {

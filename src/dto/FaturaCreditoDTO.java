@@ -7,7 +7,7 @@ import operadora.Celular;
 public class FaturaCreditoDTO {
 
 	private GregorianCalendar validadeVencimento;
-	private double Value;
+	private double value;
 	private Celular celular;
 	
 	
@@ -20,10 +20,10 @@ public class FaturaCreditoDTO {
 	}
 
 	public double getValue() {
-		return Value;
+		return value;
 	}
 	public void setValue(double value) {
-		Value = value;
+		this.value = value;
 	}
 	public Celular getCelular() {
 		return celular;
@@ -35,7 +35,7 @@ public class FaturaCreditoDTO {
 	public FaturaCreditoDTO(GregorianCalendar validadeVencimento, double value, Celular celular) {
 		super();
 		this.validadeVencimento = validadeVencimento;
-		Value = value;
+		this.value = value;
 		this.celular = celular;
 	}
 	public FaturaCreditoDTO() {
