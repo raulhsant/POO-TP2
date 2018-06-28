@@ -175,7 +175,7 @@ public class Operadora implements Serializable{
 	}
 	
 	
-	public void registrarLigacao(Integer numero, GregorianCalendar dataLigacao, Integer minutos ) throws CelularException {
+	public void registrarLigacao(Integer numero, GregorianCalendar dataLigacao, Integer minutos ) throws Exception {
 		Celular celular = null;
 		
 		for (Celular cel : celulares) {
@@ -187,12 +187,7 @@ public class Operadora implements Serializable{
 		if(celular == null)
 			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
 		else {
-			try {
-				celular.resgistrarLigacao(dataLigacao, minutos);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			celular.resgistrarLigacao(dataLigacao, minutos);
 		}
 	}
 

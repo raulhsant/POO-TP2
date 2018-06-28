@@ -1,6 +1,5 @@
 package dto;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import operadora.Celular;
