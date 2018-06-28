@@ -170,7 +170,7 @@ public class cui {
         System.out.println("O que você deseja?\n");
 
         List<String> linhas = new ArrayList<String>();
-        String linha = "|   1 - Adicionar    2 - Remover    3 - Listar    |";
+        String linha = "|   1 - Adicionar                   2 - Listar    |";
 
         String trace = "";
         String traceAux = "";
@@ -183,16 +183,16 @@ public class cui {
         linhas.add(traceAux);
         linhas.add(linha);
         linhas.add(traceAux);
-        linhas.add("| " +  whitespace + "Cliente ou Conta" + whitespace + "|");
+        linhas.add("| " +  whitespace + "Cliente, Plano ou Celular" + whitespace + "|");
         linhas.add(trace);
 
 
         whitespace = new String(new char[ (linhas.get(0).length())/2 - 4 ]).replace('\0', ' ');
 
         linhas.add(traceAux);
-        linhas.add( "|" +  whitespace + "Efetuar" + whitespace + "|");
+        linhas.add( "|" +  whitespace + "Excluir" + whitespace + "|");
         linhas.add(traceAux);
-        linhas.add("|  4 - Depósito    5 - Saque    6 - Transferência |");
+        linhas.add("|  3 - Celular |");
         linhas.add(trace);
 
 
@@ -201,20 +201,20 @@ public class cui {
         linhas.add(traceAux);
         linhas.add("|" + whitespace +  " Visualizar" + whitespace + "|");
         linhas.add(traceAux);
-        linhas.add("|         7 - Saldo           8 - Extrato         |");
+        linhas.add("|         4 - Saldo           5 - Extrato de Ligações         |");
         linhas.add(trace);
 
 
-        whitespace = new String(new char[ (linhas.get(0).length())/2 - 4 ]).replace('\0', ' ');
-
-        linhas.add(traceAux);
-        linhas.add("|" + whitespace +  " Cobrar" + whitespace + "|");
-        linhas.add(traceAux);
-        linhas.add("|        9 - Tarifas           10 - CPMF          |");
-        linhas.add(trace);
-
-
-        whitespace = new String(new char[ (linhas.get(0).length())/2 - 15 ]).replace('\0', ' ');
+//        whitespace = new String(new char[ (linhas.get(0).length())/2 - 4 ]).replace('\0', ' ');
+//
+//        linhas.add(traceAux);
+//        linhas.add("|" + whitespace +  " Cobrar" + whitespace + "|");
+//        linhas.add(traceAux);
+//        linhas.add("|        9 - Tarifas           10 - CPMF          |");
+//        linhas.add(trace);
+//
+//
+//        whitespace = new String(new char[ (linhas.get(0).length())/2 - 15 ]).replace('\0', ' ');
 
         linhas.add(traceAux);
         linhas.add("|" + whitespace +  " 0 - Sair e Salvar Alterações" + whitespace + "|");
