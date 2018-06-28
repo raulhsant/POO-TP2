@@ -1,5 +1,6 @@
 package operadora;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -9,7 +10,8 @@ import dto.FaturaCreditoDTO;
 import excecoes.CelularException;
 import excecoes.ClienteException;
 import excecoes.PlanoException;
-import sun.security.provider.certpath.OCSPResponse.ResponseStatus;
+
+import javax.swing.*;
 
 public class Operadora {
 	
@@ -36,6 +38,18 @@ public class Operadora {
 	public void setLigacoes(List<Celular> celulares) {
 		this.celulares = celulares;
 	}
+
+	public void setCelulares(List<Celular> celulares) {
+		this.celulares = celulares;
+	}
+
+	public List<Plano> getPlanos() {
+		return planos;
+	}
+
+	public void setPlanos(List<Plano> planos) {
+		this.planos = planos;
+	}
 	
 	public Operadora(String nome, List<Cliente> clientes, List<Celular> celulares, List<Plano> planos) {
 		super();
@@ -45,8 +59,9 @@ public class Operadora {
 		this.planos = planos;
 	}
 	
-	public Operadora() {
+	public Operadora(String nome) {
 		super();
+		this.nome = nome;
 		this.clientes = new ArrayList<Cliente>();
 		this.celulares = new ArrayList<Celular>();
 		this.planos = new ArrayList<Plano>();
@@ -258,5 +273,72 @@ public class Operadora {
 		return celularesComVencimento;
 	}
 
-	
+
+
+	public void writeFile() {
+
+		try {
+			FileOutputStream f = new FileOutputStream(new File("OperData.dat"));
+			ObjectOutputStream o = new ObjectOutputStream(f);
+
+			// Write objects to file
+			o.writeObject(this);
+
+			o.close();
+			f.close();
+			System.out.println("Alterações salvas com sucesso!\n");
+
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+			System.out.println("\nNão foi possível salvar as Alterações!\n");
+		}
+	}
+
+	public static Operadora readFile() {
+
+		try {
+			FileInputStream fi = new FileInputStream(new File("OperData.dat"));
+			ObjectInputStream oi = new ObjectInputStream(fi);
+
+			// Read objects
+			Operadora operadora = (Operadora) oi.readObject();
+
+			oi.close();
+			fi.close();
+
+			Celular.setproxNum(operadora.getCelulares().get(operadora.getCelulares().size()-1).getNumero());
+			return operadora;
+
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+			if (createOperadoraObjectWithDefaultName())
+			System.out.println("Default Bank Created. Try again!");
+			JOptionPane.showMessageDialog(null, "Operadora padrão criada.", "Erro ao iniciar operadora", 1);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static Boolean createOperadoraObjectWithDefaultName() {
+
+		Operadora op1 = new Operadora("Minha Operadora");
+
+		try {
+			FileOutputStream f = new FileOutputStream(new File("OperData.dat"));
+			ObjectOutputStream o = new ObjectOutputStream(f);
+
+			// Write objects to file
+			o.writeObject(op1);
+
+			o.close();
+			f.close();
+			return true;
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+			return false;
+		}
+	}
 }
