@@ -10,6 +10,7 @@ public class Cartao extends Celular {
 	
 	private GregorianCalendar validade;
 //	private List<Ligacao> ligacoes;
+	//valor corresponde ao valor dos créditos
 
 	public Cartao(Cliente cliente, Plano plano, GregorianCalendar validade) {
 		super(cliente, plano);
@@ -50,8 +51,13 @@ public class Cartao extends Celular {
 
 	}
 	
-	public double getCreditos() throws CelularException {	
-		return this.getValor();
+	public double getCreditos() throws CelularException {
+
+		GregorianCalendar now = new GregorianCalendar();
+		if(now.getTimeInMillis() < this.validade.getTimeInMillis())
+			return this.getValor();
+		else
+			throw new CelularException(String.format("Os do celular %dcréditos expiraram.", this.getNumero()));
 	}
 	
 	public GregorianCalendar getVencimentoValidade() {
@@ -59,7 +65,7 @@ public class Cartao extends Celular {
 	}
 	
 	public double getConta() throws CelularException {
-		throw new CelularException("Celular de cartão, não possui conta");
+		throw new CelularException("Celular de cartão, não possui conta.");
 	}
 
 

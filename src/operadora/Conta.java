@@ -26,8 +26,15 @@ public class Conta extends Celular {
 
 		List<Ligacao> ligacoes = this.getLigacoes();
 
+		GregorianCalendar nowGregCal = new GregorianCalendar();
+		GregorianCalendar vencimento = new GregorianCalendar( nowGregCal.get(GregorianCalendar.YEAR), nowGregCal.get(GregorianCalendar.MONTH), this.diaVencimento);
+
+
 		if(dataLigacao.getTime().getTime() > new Date().getTime())
-			throw new Exception("Não é possível registrar uma ligação que ainda não ocorreu");
+			throw new Exception("Não é possível registrar uma ligação que ainda não ocorreu.");
+		else if(vencimento.getTimeInMillis() > dataLigacao.getTimeInMillis()){
+			throw new Exception("A data informada não corresponde à fatura atual.");
+		}
 		else {
 			double valor = minutos * this.getPlano().getValorMinuto();
 			
