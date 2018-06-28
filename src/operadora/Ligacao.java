@@ -1,9 +1,10 @@
 package operadora;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Ligacao {
+public class Ligacao implements Serializable {
 	
 	private GregorianCalendar data;
 	private Integer duracao; //em minutos

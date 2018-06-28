@@ -13,7 +13,7 @@ import excecoes.PlanoException;
 
 import javax.swing.*;
 
-public class Operadora {
+public class Operadora implements Serializable{
 	
 	private String nome;
 	private List<Cliente> clientes;

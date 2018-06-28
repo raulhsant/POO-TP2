@@ -1,5 +1,6 @@
 package operadora;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -8,7 +9,7 @@ import java.util.List;
 import excecoes.CelularException;
 
 
-public class Celular {
+public class Celular implements Serializable {
 	
 	
 	private static int proxNum = 990000001;
