@@ -5,35 +5,42 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.CelularException;
+import sun.util.calendar.Gregorian;
 
 public class Conta extends Celular {
 
-	private Date vencimento;
-	private List<Ligacao> ligacoes;
+	private Integer diaVencimento;
+//	private List<Ligacao> ligacoes;
 	
-	public Conta(Cliente cliente, Plano plano, Date vencimento) {
+	public Conta(Cliente cliente, Plano plano, Integer diaValidade) {
 		super(cliente, plano);
-		this.vencimento = vencimento;
+		this.diaVencimento = diaValidade;
 	}
 	
 	
-	public void adicionarCreditos(double valor, Date validade) throws CelularException {
+	public void adicionarCreditos(double valor, GregorianCalendar validade) throws CelularException {
 		throw new CelularException("Não é possível adicionar crédito a celular de conta");
 	}
 
-	public void resgistrarLigacao(Date dataLigacao, Integer minutos) throws Exception {
-		
-		if(dataLigacao.getTime() > new Date().getTime())
+	public void resgistrarLigacao(GregorianCalendar dataLigacao, Integer minutos) throws Exception {
+
+		List<Ligacao> ligacoes = this.getLigacoes();
+
+		if(dataLigacao.getTime().getTime() > new Date().getTime())
 			throw new Exception("Não é possível registrar uma ligação que ainda não ocorreu");
 		else {
 			double valor = minutos * this.getPlano().getValorMinuto();
 			
 			Ligacao lig = new Ligacao(dataLigacao, minutos, valor);
 			
-			this.ligacoes.add(lig);
+			ligacoes.add(lig);
 			
-			this.setValor(this.getValor() + valor); //valor nesse caso é quanto será cobrado na fatura
+//			this.setValor(this.getValor() + valor); //valor nesse caso é quanto será cobrado na fatura
+													//NOPE
 		}
+
+		this.setLigacoes(ligacoes);
+
 	}
 	
 	
@@ -41,11 +48,41 @@ public class Conta extends Celular {
 		throw new CelularException("Celular de conta, não possui créditos");
 	}
 	
-	public Date getVencimentoValidade() {	
-		return this.vencimento; 
+	public GregorianCalendar getVencimentoValidade() {
+		
+		GregorianCalendar nowGregCal = new GregorianCalendar();
+		GregorianCalendar vencimento = new GregorianCalendar( nowGregCal.get(GregorianCalendar.YEAR), nowGregCal.get(GregorianCalendar.MONTH), this.diaVencimento);
+		
+		if(vencimento.get(GregorianCalendar.DATE) > this.diaVencimento) {
+
+			vencimento.set(GregorianCalendar.MONTH, nowGregCal.get(GregorianCalendar.MONTH)+1);
+			return vencimento;
+		}
+
+		return vencimento;
 	}
 	
 	public double getConta() throws CelularException {
+
+		double resposta = 0;
+
+		GregorianCalendar now = new GregorianCalendar();
+		GregorianCalendar vencimento = null;
+
+		if(now.get(GregorianCalendar.DAY_OF_MONTH) > this.diaVencimento){
+			vencimento = new GregorianCalendar(now.get(GregorianCalendar.YEAR), now.get(GregorianCalendar.MONTH), this.diaVencimento);
+		} else{
+			vencimento = new GregorianCalendar(now.get(GregorianCalendar.YEAR), now.get(GregorianCalendar.MONTH) - 1, this.diaVencimento);
+		}
+
+		for (Ligacao ligacao : this.getLigacoes()){
+			if(vencimento!=null && ligacao.getData().getTimeInMillis() > vencimento.getTimeInMillis()){
+				resposta += ligacao.getValor();
+			}
+
+		}
+
+
 		return this.getValor();
 	}
 	

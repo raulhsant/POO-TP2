@@ -2,6 +2,7 @@ package operadora;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import dto.FaturaCreditoDTO;
@@ -82,7 +83,7 @@ public class Operadora {
 	}
 	
 	
-	public void adicionarCelular(String tipo, Plano plano, Cliente cliente, Date validade) throws Exception {
+	public void adicionarCelular(String tipo, Plano plano, Cliente cliente, Integer validade) throws Exception {
 		
 		Celular celular;
 		
@@ -140,12 +141,18 @@ public class Operadora {
 			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
 		else {
 			
-			Date agora = new Date();
-			long centoeOitentaDiasEmMillis = 86400L * 1000L * 180L;
-			
-			long validadeEmMillis =  agora.getTime() + centoeOitentaDiasEmMillis;
-			
-			Date validade = new Date(validadeEmMillis);
+//			Date agora = new Date();
+//			long centoeOitentaDiasEmMillis = 86400L * 1000L * 180L;
+//
+//			long validadeEmMillis =  agora.getTime() + centoeOitentaDiasEmMillis;
+
+			GregorianCalendar validade = new GregorianCalendar();
+
+//			Date val = new Date(validadeEmMillis);
+//
+//			validade.setTime(val);
+
+			validade.set(GregorianCalendar.DAY_OF_YEAR, validade.get(GregorianCalendar.DAY_OF_YEAR) + 180);
 			
 			celular.adicionarCreditos(valor, validade);
 		}
@@ -153,7 +160,7 @@ public class Operadora {
 	}
 	
 	
-	public void registrarLigacao(Integer numero, Date dataLigacao, Integer minutos ) throws CelularException {
+	public void registrarLigacao(Integer numero, GregorianCalendar dataLigacao, Integer minutos ) throws CelularException {
 		Celular celular = null;
 		
 		for (Celular cel : celulares) {
@@ -173,56 +180,83 @@ public class Operadora {
 			}
 		}
 	}
-	
-	public FaturaCreditoDTO listaCreditos(Integer numero) throws CelularException {
-		
-		Celular celular = null;
-		FaturaCreditoDTO resposta = new FaturaCreditoDTO();
-		
-		for (Celular cel : celulares) {
-			if (cel.getNumero().equals(numero)) {
-				celular = cel;
-			}
-		}
-		
-		if(celular == null)
-			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
-		else {
-			resposta.setCelular(celular);
-			resposta.setValidadeVencimento(celular.getVencimentoValidade());
-			resposta.setValue(celular.getCreditos());
-		}
-		
-		return resposta;
-		
-	}
-	
-	
+
 	public FaturaCreditoDTO listaConta(Integer numero) throws CelularException {
-		
+
 		Celular celular = null;
 		FaturaCreditoDTO resposta = new FaturaCreditoDTO();
-		
+
 		for (Celular cel : celulares) {
 			if (cel.getNumero().equals(numero)) {
 				celular = cel;
 			}
 		}
-		
+
 		if(celular == null)
-			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
+			throw new CelularException(String.format("Celular com número %d não encontrado", numero));
 		else {
 			resposta.setCelular(celular);
 			resposta.setValidadeVencimento(celular.getVencimentoValidade());
 			resposta.setValue(celular.getConta());
 		}
-		
+
 		return resposta;
-		
 	}
-	
-	
-	
-	
+
+	public FaturaCreditoDTO listaCreditos(Integer numero) throws CelularException {
+
+		Celular celular = null;
+		FaturaCreditoDTO resposta = new FaturaCreditoDTO();
+
+		for (Celular cel : celulares) {
+			if (cel.getNumero().equals(numero)) {
+				celular = cel;
+			}
+		}
+
+		if(celular == null)
+			throw new CelularException(String.format("Celular com número %d não encontrado", numero));
+		else {
+			resposta.setCelular(celular);
+			resposta.setValidadeVencimento(celular.getVencimentoValidade());
+			resposta.setValue(celular.getCreditos());
+		}
+
+		return resposta;
+
+	}
+
+
+	public List<Ligacao> getExtratoLigacoes( Integer numero, GregorianCalendar desde) throws CelularException {
+
+		Celular celular = null;
+
+		for (Celular cel : celulares) {
+			if (cel.getNumero().equals(numero)) {
+				celular = cel;
+			}
+		}
+
+		if(celular == null)
+			throw new CelularException(String.format("Celular com número %d não encontrado", numero));
+		else {
+			return celular.getLigacoes(desde);
+		}
+
+	}
+
+	public List<Celular> getVencidos(){
+
+		List<Celular> celularesComVencimento = new ArrayList<Celular>();
+
+		for(Celular celular : this.celulares){
+			if(celular.getVencimentoValidade().getTime().getTime() < new Date().getTime() ){
+				celularesComVencimento.add(celular);
+			}
+		}
+
+		return celularesComVencimento;
+	}
+
 	
 }

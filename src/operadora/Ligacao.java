@@ -1,18 +1,19 @@
 package operadora;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Ligacao {
 	
-	private Date data;	
+	private GregorianCalendar data;
 	private Integer duracao; //em minutos
 	private double valor;
 //	private Integer destinatario;
 	
-	public Date getData() {
+	public GregorianCalendar getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(GregorianCalendar data) {
 		this.data = data;
 	}
 	public Integer getDuracao() {
@@ -34,7 +35,7 @@ public class Ligacao {
 //		this.destinatario = destinatario;
 //	}
 //	
-	public Ligacao(Date data, Integer duracao, double valor) {
+	public Ligacao(GregorianCalendar data, Integer duracao, double valor) {
 		super();
 		this.data = data;
 		this.duracao = duracao;

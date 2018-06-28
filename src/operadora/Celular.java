@@ -2,9 +2,9 @@ package operadora;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-import dto.FaturaCreditoDTO;
 import excecoes.CelularException;
 
 
@@ -86,24 +86,27 @@ public class Celular {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void adicionarCreditos(double valor, Date validade) throws CelularException {}
-	public void resgistrarLigacao(Date dataLigacao, Integer minutos) throws Exception {}
+
+	public void adicionarCreditos(double valor, GregorianCalendar validade) throws CelularException {}
+	public void resgistrarLigacao(GregorianCalendar dataLigacao, Integer minutos) throws Exception {}
 	public double getCreditos() throws CelularException { return (Double) null; }
-	public Date getVencimentoValidade() {	return null; }
+	public GregorianCalendar getVencimentoValidade() {	return null; }
 	public double getConta() throws CelularException { return (Double) null; }
-	
-	
-	
+
+
+	public List<Ligacao> getLigacoes(GregorianCalendar desde) {
+
+		List <Ligacao> ligacoesToReturn = new ArrayList<Ligacao>();
+
+		for(Ligacao ligacao : this.ligacoes){
+
+			if(ligacao.getData() != null && ligacao.getData().getTimeInMillis() > desde.getTimeInMillis()){
+				ligacoesToReturn.add(ligacao);
+			}
+		}
+
+		return ligacoesToReturn;
+	}
 
 	
 	

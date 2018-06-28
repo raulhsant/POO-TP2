@@ -1,22 +1,25 @@
 package dto;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import operadora.Celular;
 
 public class FaturaCreditoDTO {
 
-	private Date validadeVencimento;
+	private GregorianCalendar validadeVencimento;
 	private double Value;
 	private Celular celular;
 	
 	
-	public Date getValidadeVencimento() {
+	public GregorianCalendar getValidadeVencimento() {
 		return validadeVencimento;
 	}
-	public void setValidadeVencimento(Date validadeVencimento) {
+
+	public void setValidadeVencimento(GregorianCalendar validadeVencimento) {
 		this.validadeVencimento = validadeVencimento;
 	}
+
 	public double getValue() {
 		return Value;
 	}
@@ -30,7 +33,7 @@ public class FaturaCreditoDTO {
 		this.celular = celular;
 	}
 	
-	public FaturaCreditoDTO(Date validadeVencimento, double value, Celular celular) {
+	public FaturaCreditoDTO(GregorianCalendar validadeVencimento, double value, Celular celular) {
 		super();
 		this.validadeVencimento = validadeVencimento;
 		Value = value;
