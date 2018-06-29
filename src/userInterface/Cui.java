@@ -2,14 +2,10 @@ package userInterface;
 
 import dto.FaturaCreditoDTO;
 import excecoes.CelularException;
-import excecoes.ClienteException;
-import excecoes.PlanoException;
 
 import java.text.DateFormat;
-import operadora.Celular;
-import operadora.Cliente;
-import operadora.Operadora;
-import operadora.Plano;
+
+import operadora.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -143,52 +139,29 @@ public class Cui {
                     break;
 
                 case 8:
-//                    try {
-//                        Cui.writeExtractMenu();
-//                    } catch (ParseException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                        System.out.println("Error ocnverting date!");
-//                    }
-//
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        ui.escreveRegistroLigacoes();
+                    } catch (CelularException e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();in.nextLine();
+                    }
                     break;
 
                 case 9:
-//                    banco.bankRatePayment();
-//                    System.out.println("\nTarifas cobradas com sucesso!\nPressione ENTER para continuar.");
-//
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+
+                    ui.escreveInformativoVencimento();
+                    in.nextLine();in.nextLine();
                     break;
 
-                case 10:
-
-//                    banco.CpmfPayment();
-//                    System.out.println("\nCPMF cobrado com sucesso!\nPressione ENTER para continuar.");
-//
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
-                    break;
 
             }
 
         }
 
     }
+
 
     private void escreveMenu() {
         System.out.println(new String(new char[ 55 ]).replace('\0', '_'));
@@ -264,6 +237,7 @@ public class Cui {
         for(String line : linhas)
             System.out.println(line);
     }
+
 
     private void escreveClienteCelularPlanoMenu(String action, int whatToDo) throws Exception {
 
@@ -471,6 +445,7 @@ public class Cui {
 
     }
 
+
     private void escreveRegistrarLigacao() throws Exception {
 
         Scanner in = new Scanner(System.in);
@@ -493,6 +468,7 @@ public class Cui {
         Date dateAux = null;
         try {
             dateAux = (Date)newFormatter.parse(dataLigacao);
+            data.setTime(dateAux);
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("**********************************************************");
@@ -500,12 +476,11 @@ public class Cui {
             System.out.println("**********************************************************");
             in.nextLine();
         }
-        data.setTime(dateAux);
 
 
         Integer duracao = Integer.valueOf(duracaoString);
 
-        if (duracao != null){
+        if (duracao != null && dateAux != null){
             operadora.registrarLigacao(numero,data,duracao);
         }
 
@@ -571,6 +546,86 @@ public class Cui {
             System.out.println("\nPressione ENTER para continuar");
             in.nextLine();
         }
+    }
+
+
+    private void escreveRegistroLigacoes() throws CelularException {
+
+        Scanner in = new Scanner(System.in);
+
+
+        System.out.println("\nExtrato de ligações:");
+//        in.nextLine();
+        System.out.printf("Número: ");
+        Integer numero = in.nextInt();
+        in.nextLine();
+        System.out.printf("Desde (dd/MM/yyyy): ");
+        String dataLigacao = in.nextLine();
+//        System.out.printf("Duracao em minutos: ");
+//        String duracaoString = in.nextLine();
+
+        GregorianCalendar data = new GregorianCalendar();
+
+        DateFormat Formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date dateAux = null;
+        try {
+            dateAux = (Date)Formatter.parse(dataLigacao);
+            data.setTime(dateAux);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("**********************************************************");
+            System.out.println("\t" + e);
+            System.out.println("**********************************************************");
+            in.nextLine();
+        }
+
+        List<Ligacao> ligacoes = new ArrayList<Ligacao>();
+
+        if(dateAux != null)
+            ligacoes =  operadora.getExtratoLigacoes(numero, data);
+
+        String trace = new String(new char[ 42 ]).replace('\0', '-');
+
+        System.out.print("");
+        System.out.println(trace);
+        System.out.println(String.format("Extrato de ligações do número %d", numero));
+
+        for (Ligacao ligacao : ligacoes) {
+            System.out.println(trace);
+
+
+            System.out.printf("Data da ligação: " + Formatter.format(ligacao.getData().getTime()) + "\n");
+            System.out.printf("Duração: %d minutos\nCusto: R$ %.2f\n",ligacao.getDuracao(),ligacao.getValor());
+
+        }
+        System.out.println(trace);
+        System.out.println("\nPressione ENTER para continuar");
+        in.nextLine();
+    }
+
+    private void escreveInformativoVencimento() {
+
+        List<Celular> vencidos = operadora.getVencidos();
+
+        DateFormat Formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        String trace = new String(new char[ 42 ]).replace('\0', '-');
+
+        System.out.print("");
+        System.out.println(trace);
+        System.out.println(String.format("Informativo de vencimentos.\n%d celulares estão vencidos", vencidos.size()));
+
+        for (Celular celular : vencidos) {
+            System.out.println(trace);
+
+            System.out.printf("Cliente:\n %s \t %s\n",celular.getCliente().getNome(), celular.getCliente().getCpfCnpj());
+            System.out.printf("Número:\n %s \t Plano: %s\n",celular.getNumero(), celular.getPlano().getNome());
+            System.out.printf("Vencimento: " + Formatter.format(celular.getVencimentoValidade().getTime()) + "\n");
+
+        }
+        System.out.println(trace);
+        System.out.println("\nPressione ENTER para continuar");
     }
 
 }
