@@ -1,6 +1,8 @@
 package operadora;
 
-public class Plano {
+import java.io.Serializable;
+
+public class Plano implements Serializable {
 
 	private String nome;
 	private double valorMinuto;

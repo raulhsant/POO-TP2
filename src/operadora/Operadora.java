@@ -101,9 +101,11 @@ public class Operadora implements Serializable{
 //	public void adicionarCelular(String tipo, Plano plano, Cliente cliente, Integer validade) throws Exception {
 	public void adicionarCelular(String tipo, String nomePlano, String cpfCnpj, Integer validade) throws Exception {
 
-		Celular celular;
+		Celular celular = null;
 		Plano plano = null;
 		Cliente cliente = null;
+
+		List<Celular> celulares = this.getCelulares();
 
 		for (Plano planoFinder : this.planos){
 			if(planoFinder.getNome().equals(nomePlano)){
@@ -115,7 +117,6 @@ public class Operadora implements Serializable{
 			if(clienteFinder.getCpfCnpj().equals(cpfCnpj)){
 				cliente = clienteFinder;
 			}
-
 		}
 
 		if(cliente == null)
@@ -135,6 +136,12 @@ public class Operadora implements Serializable{
 			}else
 				throw new Exception("Tipo de celular incorreto");
 		}
+
+		if(celular != null) {
+			celulares.add(celular);
+			this.setCelulares(celulares);
+		}
+
 	}
 	
 	public void excluirCelular(Integer numero) throws CelularException {
@@ -317,16 +324,18 @@ public class Operadora implements Serializable{
 			oi.close();
 			fi.close();
 
-			Celular.setproxNum(operadora.getCelulares().get(operadora.getCelulares().size()-1).getNumero());
+			if (operadora.getCelulares().size() >= 1)
+				Celular.setproxNum(operadora.getCelulares().get(operadora.getCelulares().size()-1).getNumero());
 			return operadora;
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} catch (IOException e) {
 			System.out.println("Error initializing stream");
-			if (createOperadoraObjectWithDefaultName())
-			System.out.println("Default Bank Created. Try again!");
-			JOptionPane.showMessageDialog(null, "Operadora padrão criada.", "Erro ao iniciar operadora", 1);
+			if (createOperadoraObjectWithDefaultName()) {
+				JOptionPane.showMessageDialog(null, "Operadora padrão criada.", "Erro ao iniciar operadora", 1);
+				System.out.println("Default Operator Created. Try again!");
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
