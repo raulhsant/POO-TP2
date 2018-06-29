@@ -59,8 +59,11 @@ public class Conta extends Celular {
 		
 		GregorianCalendar nowGregCal = new GregorianCalendar();
 		GregorianCalendar vencimento = new GregorianCalendar( nowGregCal.get(GregorianCalendar.YEAR), nowGregCal.get(GregorianCalendar.MONTH), this.diaVencimento);
-		
-		if(vencimento.get(GregorianCalendar.DATE) > this.diaVencimento) {
+
+		int teste = nowGregCal.get(GregorianCalendar.DAY_OF_MONTH);
+		int teste2 = nowGregCal.get(GregorianCalendar.YEAR);
+
+		if(nowGregCal.get(GregorianCalendar.DAY_OF_MONTH) > this.diaVencimento) {
 
 			vencimento.set(GregorianCalendar.MONTH, nowGregCal.get(GregorianCalendar.MONTH)+1);
 			return vencimento;

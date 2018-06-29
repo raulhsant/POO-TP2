@@ -1,5 +1,6 @@
 package userInterface;
 
+import dto.FaturaCreditoDTO;
 import excecoes.CelularException;
 import excecoes.ClienteException;
 import excecoes.PlanoException;
@@ -119,25 +120,26 @@ public class Cui {
                     break;
 
                 case 6:
-//                    Cui.writeExecuteMenu("Transf");
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        ui.escreveSaldoConta(1);
+                    } catch (CelularException e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();in.nextLine();
+                    }
                     break;
 
                 case 7:
-//                    Cui.writeSaldoMenu();
-//
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        ui.escreveSaldoConta(2);
+                    } catch (CelularException e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();in.nextLine();
 
+                    }
                     break;
 
                 case 8:
@@ -510,6 +512,65 @@ public class Cui {
         System.out.println(String.format("\nLigação registrada com sucesso. \nPressione ENTER para continuar"));
         in.nextLine();
 
+    }
+
+
+    private void escreveSaldoConta(int saldoConta) throws CelularException {
+        Scanner in = new Scanner(System.in);
+
+        if(saldoConta == 1)
+            System.out.println("\nVocê deseja visualizar o saldo.");
+        else if (saldoConta == 2)
+            System.out.println("\nVocê deseja visualizar a conta.");
+
+
+        System.out.printf("Número: ");
+        Integer numero = in.nextInt();
+        in.nextLine();
+
+        FaturaCreditoDTO faturaCreditoDTO = null;
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        if(saldoConta == 1){
+
+            faturaCreditoDTO= operadora.listaCreditos(numero);
+
+            String trace = new String(new char[ 42 ]).replace('\0', '-');
+
+            System.out.print("");
+            System.out.println(trace);
+            System.out.println(String.format("Saldo do telefone %d", faturaCreditoDTO.getCelular().getNumero()));
+
+            System.out.println(trace);
+
+
+            System.out.printf("Saldo: %.2f\n", faturaCreditoDTO.getValue());
+            System.out.printf("Validade: " + formatter.format(faturaCreditoDTO.getValidadeVencimento().getTime()) + "\n");
+
+            System.out.println(trace);
+            System.out.println("\nPressione ENTER para continuar");
+            in.nextLine();
+
+        } else if (saldoConta == 2){
+            faturaCreditoDTO= operadora.listaConta(numero);
+
+            String trace = new String(new char[ 42 ]).replace('\0', '-');
+
+            System.out.print("");
+            System.out.println(trace);
+            System.out.println(String.format("Conta do telefone %d", faturaCreditoDTO.getCelular().getNumero()));
+
+            System.out.println(trace);
+
+
+            System.out.printf("Valor da conta: %.2f\n", faturaCreditoDTO.getValue());
+            System.out.printf("Vencimento: " + formatter.format(faturaCreditoDTO.getValidadeVencimento().getTime()) + "\n");
+
+            System.out.println(trace);
+            System.out.println("\nPressione ENTER para continuar");
+            in.nextLine();
+        }
     }
 
 }

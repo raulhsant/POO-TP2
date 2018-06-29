@@ -199,7 +199,7 @@ public class Operadora implements Serializable{
 //
 //			validade.setTime(val);
 
-			validade.set(GregorianCalendar.DAY_OF_YEAR, validade.get(GregorianCalendar.DAY_OF_YEAR) + 180);
+			validade.set(GregorianCalendar.DAY_OF_YEAR, validade.get(GregorianCalendar.DAY_OF_YEAR) + 179);
 			
 			celular.adicionarCreditos(valor, validade);
 		}
