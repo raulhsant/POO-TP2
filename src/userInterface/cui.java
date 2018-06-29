@@ -170,7 +170,7 @@ public class cui {
         System.out.println("O que você deseja?\n");
 
         List<String> linhas = new ArrayList<String>();
-        String linha = "|   1 - Adicionar                   2 - Listar    |";
+        String linha = "|       1 - Adicionar            2 - Listar       |";
 
         String trace = "";
         String traceAux = "";
@@ -179,42 +179,57 @@ public class cui {
             traceAux += "-";
         }
 
-        String whitespace = new String(new char[ (linha.length() - 18)/2 ]).replace('\0', ' ');
+        String whitespace = new String(new char[ (linha.length() - 28)/2 ]).replace('\0', ' ');
         linhas.add(traceAux);
         linhas.add(linha);
         linhas.add(traceAux);
-        linhas.add("| " +  whitespace + "Cliente, Plano ou Celular" + whitespace + "|");
+        linhas.add("| " +  whitespace + "Cliente - Plano - Celular" + whitespace + " |");
         linhas.add(trace);
 
 
-        whitespace = new String(new char[ (linhas.get(0).length())/2 - 4 ]).replace('\0', ' ');
+        whitespace = new String(new char[ (linhas.get(0).length())/2 - 10 ]).replace('\0', ' ');
 
         linhas.add(traceAux);
-        linhas.add( "|" +  whitespace + "Excluir" + whitespace + "|");
+//        linhas.add( "|  " +  whitespace + "Excluir" + whitespace + "  |");
+//        linhas.add(traceAux);
+        linhas.add("|" + whitespace +  "3 - Excluir Celular" + whitespace +   "|");
+        linhas.add(trace);
+
+
+        whitespace = new String(new char[ (linhas.get(0).length())/2 - 12 ]).replace('\0', ' ');
+
         linhas.add(traceAux);
-        linhas.add("|  3 - Celular |");
+        linhas.add("| " + whitespace +  "4 - Adicionar Créditos" + whitespace +   "|");
+        linhas.add(trace);
+
+        linhas.add(traceAux);
+        linhas.add("| " + whitespace +  "5 - Registrar Ligação" + whitespace +   " |");
         linhas.add(trace);
 
 
         whitespace = new String(new char[ (linhas.get(0).length())/2 - 6 ]).replace('\0', ' ');
 
         linhas.add(traceAux);
-        linhas.add("|" + whitespace +  " Visualizar" + whitespace + "|");
+        linhas.add("| " + whitespace +  "Visualizar" + whitespace + "|");
         linhas.add(traceAux);
-        linhas.add("|         4 - Saldo           5 - Extrato de Ligações         |");
+        linhas.add("|      6 - Saldo (Pré)       7 - Conta (Pós)      |");
         linhas.add(trace);
 
 
-//        whitespace = new String(new char[ (linhas.get(0).length())/2 - 4 ]).replace('\0', ' ');
-//
-//        linhas.add(traceAux);
-//        linhas.add("|" + whitespace +  " Cobrar" + whitespace + "|");
-//        linhas.add(traceAux);
-//        linhas.add("|        9 - Tarifas           10 - CPMF          |");
-//        linhas.add(trace);
-//
-//
-//        whitespace = new String(new char[ (linhas.get(0).length())/2 - 15 ]).replace('\0', ' ');
+        whitespace = new String(new char[ (linhas.get(0).length())/2 - 12 ]).replace('\0', ' ');
+
+        linhas.add(traceAux);
+        linhas.add("|" + whitespace +  "8 - Extrato de Ligações" + whitespace +   "|");
+        linhas.add(trace);
+
+
+        whitespace = new String(new char[ (linhas.get(0).length())/2 - 15 ]).replace('\0', ' ');
+        linhas.add(traceAux);
+        linhas.add("|" + whitespace +  "9 - Informativo de vencimento" + whitespace +   "|");
+        linhas.add(trace);
+
+
+        whitespace = new String(new char[ (linhas.get(0).length())/2 - 15 ]).replace('\0', ' ');
 
         linhas.add(traceAux);
         linhas.add("|" + whitespace +  " 0 - Sair e Salvar Alterações" + whitespace + "|");
