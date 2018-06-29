@@ -3,15 +3,17 @@ package userInterface;
 import excecoes.CelularException;
 import excecoes.ClienteException;
 import excecoes.PlanoException;
+
+import java.text.DateFormat;
 import operadora.Celular;
 import operadora.Cliente;
 import operadora.Operadora;
 import operadora.Plano;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Cui {
     private static Operadora operadora;
@@ -54,7 +56,7 @@ public class Cui {
                 case 1:
                     try {
                         ui.escreveClienteCelularPlanoMenu("Adicionar", 1);
-                        System.in.read();
+//                        System.in.read();
                     } catch (Exception e) {
 //                        e.printStackTrace();
                         System.out.println("**********************************************************");
@@ -94,23 +96,26 @@ public class Cui {
                     break;
 
                 case 4:
-//                    Cui.writeExecuteMenu("Dep");
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try{
+                        ui.escreveAdicionarCreditos();
+                    } catch (CelularException e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();
+                    }
                     break;
 
                 case 5:
-//                    Cui.writeExecuteMenu("Saq");
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        ui.escreveRegistrarLigacao();
+                    } catch (Exception e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();
+                    }
+
                     break;
 
                 case 6:
@@ -257,8 +262,6 @@ public class Cui {
         for(String line : linhas)
             System.out.println(line);
     }
-
-
 
     private void escreveClienteCelularPlanoMenu(String action, int whatToDo) throws Exception {
 
@@ -444,4 +447,69 @@ public class Cui {
         System.out.println(String.format("\nCelular %d removido com sucesso. \nPressione ENTER para continuar", numero));
 //        in.nextLine();
     }
+
+
+    private void escreveAdicionarCreditos() throws CelularException {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("\nVocê deseja adicionar créditos");
+//        in.nextLine();
+        System.out.printf("Número: ");
+        Integer numero = in.nextInt();
+        in.nextLine();
+        System.out.printf("Valor dos créditos (0.00): ");
+        String credito = in.nextLine();
+
+        operadora.adicionarCréditos(numero,  Double.parseDouble( credito.replace(",",".") ));
+
+        System.out.println(String.format("\nCrédito adicionado com sucesso. \nPressione ENTER para continuar"));
+        in.nextLine();
+
+
+    }
+
+    private void escreveRegistrarLigacao() throws Exception {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("\nVocê deseja registrar uma ligação");
+//        in.nextLine();
+        System.out.printf("Número que efetuou a ligação: ");
+        Integer numero = in.nextInt();
+        in.nextLine();
+        System.out.printf("Data da ligação (dd/MM/yyyy): ");
+        String dataLigacao = in.nextLine();
+        System.out.printf("Duracao em minutos: ");
+        String duracaoString = in.nextLine();
+
+
+        GregorianCalendar data = new GregorianCalendar();
+
+        DateFormat newFormatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date dateAux = null;
+        try {
+            dateAux = (Date)newFormatter.parse(dataLigacao);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.out.println("**********************************************************");
+            System.out.println("\t" + e);
+            System.out.println("**********************************************************");
+            in.nextLine();
+        }
+        data.setTime(dateAux);
+
+
+        Integer duracao = Integer.valueOf(duracaoString);
+
+        if (duracao != null){
+            operadora.registrarLigacao(numero,data,duracao);
+        }
+
+        System.out.println(String.format("\nLigação registrada com sucesso. \nPressione ENTER para continuar"));
+        in.nextLine();
+
+    }
+
 }

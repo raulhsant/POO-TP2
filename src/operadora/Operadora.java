@@ -77,11 +77,13 @@ public class Operadora implements Serializable{
 	
 	public void cadastrarCliente(String nome, String cpfCnpj, String endereco) throws ClienteException {
 		Cliente cliente = new Cliente(nome, cpfCnpj, endereco);
-		
-		if (clientes.contains(cliente)) {
-			throw new ClienteException("O cliente informado já existe.", cliente);
-		} else
-			clientes.add(cliente);		
+
+		for (Cliente clienteFinder : clientes){
+			if(clienteFinder.getCpfCnpj().equals(cpfCnpj))
+				throw new ClienteException("O cliente informado já existe.", cliente);
+		}
+
+		clientes.add(cliente);
 	}
 	
 	public void cadastrarPlano(String nome, double valorMinuto) throws PlanoException {
