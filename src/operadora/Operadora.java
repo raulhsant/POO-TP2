@@ -146,7 +146,7 @@ public class Operadora implements Serializable{
 	
 	public void excluirCelular(Integer numero) throws CelularException {
 		
-//		Boolean celFound = false;
+//		Boolean typeResolved = false;
 		Celular celular = null;
 		
 		for (Celular cel : celulares) {
@@ -158,9 +158,16 @@ public class Operadora implements Serializable{
 		if(celular == null)
 			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
 		else {
-			if (celular.getValor() == 0) {
+			double pendencia;
+			try{
+				pendencia = celular.getCreditos();
+			} catch(CelularException e){
+				pendencia = celular.getConta();
+			}
+
+			if(celular != null && pendencia == 0){
 				this.celulares.remove(celular);
-			} else
+			}else
 				throw new CelularException("Celular não pode ser excluído");
 		}
 	}

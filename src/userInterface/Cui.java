@@ -1,5 +1,6 @@
 package userInterface;
 
+import excecoes.CelularException;
 import excecoes.ClienteException;
 import excecoes.PlanoException;
 import operadora.Celular;
@@ -78,13 +79,18 @@ public class Cui {
                     break;
 
                 case 3:
-//                    Cui.escreveClienteCelularPlanoMenu("Listar", 3);
-//                    try {
-//                        System.in.read();
-//                    } catch (IOException e) {
-//                        // TODO Auto-generated catch block
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        ui.escreveExcluirCelular();
+                        System.in.read();
+                    } catch (CelularException e) {
+                        System.out.println("**********************************************************");
+                        System.out.println("\t" + e);
+                        System.out.println("**********************************************************");
+                        in.nextLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
 
                 case 4:
@@ -417,5 +423,25 @@ public class Cui {
             }
         }
 
+    }
+
+
+    private void escreveExcluirCelular() throws CelularException {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("\nVocê deseja excluir um celular.\nO celular só pode ser excluído se não possuir créditos ou ligações a serem pagas!");
+
+        System.out.println("Favor digitar o número do celular a ser removido");
+//        in.nextLine();
+        System.out.printf("Número: ");
+        Integer numero = in.nextInt();
+        in.nextLine();
+//        System.out.printf("Preço por minuto (0.00): ");
+//        String valorMinuto = in.nextLine();
+
+        operadora.excluirCelular(numero);
+
+        System.out.println(String.format("\nCelular %d removido com sucesso. \nPressione ENTER para continuar", numero));
+//        in.nextLine();
     }
 }
