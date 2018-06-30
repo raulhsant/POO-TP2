@@ -57,7 +57,7 @@ public class Cui {
                     } catch (Exception e) {
 //                        e.printStackTrace();
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -65,12 +65,12 @@ public class Cui {
 
                 case 2:
                     try {
-                        ui.escreveClienteCelularPlanoMenu("Remover", 2);
+                        ui.escreveClienteCelularPlanoMenu("Listar", 2);
                         System.in.read();
                     } catch (Exception e) {
 //                        e.printStackTrace();
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -83,7 +83,7 @@ public class Cui {
                         System.in.read();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t"+ e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     } catch (IOException e) {
@@ -97,7 +97,7 @@ public class Cui {
                         ui.escreveAdicionarCreditos();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -108,7 +108,7 @@ public class Cui {
                         ui.escreveRegistrarLigacao();
                     } catch (Exception e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -120,7 +120,7 @@ public class Cui {
                         ui.escreveSaldoConta(1);
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
                     }
@@ -131,7 +131,7 @@ public class Cui {
                         ui.escreveSaldoConta(2);
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
 
@@ -143,7 +143,7 @@ public class Cui {
                         ui.escreveRegistroLigacoes();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
                     }
@@ -472,7 +472,7 @@ public class Cui {
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("**********************************************************");
-            System.out.println("\t" + e);
+            System.out.println("\t" + e.getMessage());
             System.out.println("**********************************************************");
             in.nextLine();
         }
@@ -575,7 +575,7 @@ public class Cui {
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("**********************************************************");
-            System.out.println("\t" + e);
+            System.out.println("\t" + e.getMessage());
             System.out.println("**********************************************************");
             in.nextLine();
         }

@@ -5,14 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.CelularException;
-import sun.util.calendar.Gregorian;
-
+import java.util.GregorianCalendar;
+	
 public class Conta extends Celular {
 
 	private Integer diaVencimento;
 //	private List<Ligacao> ligacoes;
 	
-	public Conta(Cliente cliente, Plano plano, Integer diaValidade) {
+	public Conta(Cliente cl1iente, Plano plano, Integer diaValidade) {
 		super(cliente, plano);
 		this.diaVencimento = diaValidade;
 	}
