@@ -351,6 +351,7 @@ public class Cui {
 
                     System.out.printf("Dia do mês para vencimento da conta: ");
                     diaVencimento = in.nextInt();
+                    in.nextLine();
 
                 } else if(tipo.equals(1))
                     tipoString = "Cartao";
@@ -359,7 +360,7 @@ public class Cui {
 
                 System.out.println("\nCelular adicionado com sucesso. \nPressione ENTER para continuar");
                 in.nextLine();
-
+				
             } else if (whatToDo == 2) {
 
                 List<Celular> celulares = operadora.getCelulares();
