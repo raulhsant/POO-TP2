@@ -200,16 +200,7 @@ public class Operadora implements Serializable{
 			throw new CelularException(String.format("Celular com número %d não encontrado", numero));	
 		else {
 			
-//			Date agora = new Date();
-//			long centoeOitentaDiasEmMillis = 86400L * 1000L * 180L;
-//
-//			long validadeEmMillis =  agora.getTime() + centoeOitentaDiasEmMillis;
-
 			GregorianCalendar validade = new GregorianCalendar();
-
-//			Date val = new Date(validadeEmMillis);
-//
-//			validade.setTime(val);
 
 			validade.set(GregorianCalendar.DAY_OF_YEAR, validade.get(GregorianCalendar.DAY_OF_YEAR) + 179);
 			
@@ -354,8 +345,9 @@ public class Operadora implements Serializable{
 		} catch (IOException e) {
 			System.out.println("Error initializing stream");
 			if (createOperadoraObjectWithDefaultName()) {
-				JOptionPane.showMessageDialog(null, "Operadora padrão criada.", "Erro ao iniciar operadora", 1);
+				JOptionPane.showMessageDialog(null, "Operadora padrão criada", "Erro ao iniciar operadora", 1);
 				System.out.println("Default Operator Created. Try again!");
+				return readFile();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -376,6 +368,7 @@ public class Operadora implements Serializable{
 
 			o.close();
 			f.close();
+			
 			return true;
 		} catch (IOException e) {
 			System.out.println("Error initializing stream");
