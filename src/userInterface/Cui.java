@@ -44,7 +44,7 @@ public class Cui {
                     break;
 
                 case 0:
-                    System.out.println("\nSalvando alterações...");
+//                    System.out.println("\nSalvando alterações...");
                     close = true;
                     operadora.writeFile();
                     System.out.println("\tAté logo!");
