@@ -1,20 +1,32 @@
 package operadora;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import dto.FaturaCreditoDTO;
 import excecoes.CelularException;
 import excecoes.ClienteException;
 import excecoes.PlanoException;
 
-import javax.swing.*;
 
 public class Operadora implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3404108557138435816L;
 	private String nome;
 	private List<Cliente> clientes;
 	private List<Celular> celulares;

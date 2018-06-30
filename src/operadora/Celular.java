@@ -2,7 +2,6 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,6 +11,10 @@ import excecoes.CelularException;
 public class Celular implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -517118110091602025L;
 	private static int proxNum = 990000001;
 	
 	public static void setproxNum(int numCels) {
@@ -41,15 +44,7 @@ public class Celular implements Serializable {
 	public Integer getNumero() {
 		return numero;
 	}
-//	public void setNumero(Integer numero) {
-//		this.numero = numero;
-//	}	
-//	public Date getValidade() {
-//		return validade;
-//	}
-//	public void setValidade(Date validade) {
-//		this.validade = validade;
-//	}
+
 	public double getValor() {
 		return valor;
 	}

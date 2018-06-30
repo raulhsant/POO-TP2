@@ -265,11 +265,6 @@ public class Cui {
                 System.out.printf("Endereço: ");
                 String end = in.nextLine();
 
-//                System.out.printf("Telefone: ");
-//                String tel = in.nextLine();
-
-//                Cliente client = new Cliente(nome, cpf, end);
-
                 operadora.cadastrarCliente(nome, cpf, end);
 
                 System.out.println(String.format("\nCliente %s adicionado com sucesso. \nPressione ENTER para continuar", nome));
@@ -415,8 +410,6 @@ public class Cui {
         System.out.printf("Número: ");
         Integer numero = in.nextInt();
         in.nextLine();
-//        System.out.printf("Preço por minuto (0.00): ");
-//        String valorMinuto = in.nextLine();
 
         operadora.excluirCelular(numero);
 
