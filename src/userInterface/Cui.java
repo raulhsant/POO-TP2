@@ -44,7 +44,7 @@ public class Cui {
                     break;
 
                 case 0:
-                    System.out.println("\nSalvando alterações...");
+//                    System.out.println("\nSalvando alterações...");
                     close = true;
                     operadora.writeFile();
                     System.out.println("\tAté logo!");
@@ -57,7 +57,7 @@ public class Cui {
                     } catch (Exception e) {
 //                        e.printStackTrace();
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -65,12 +65,12 @@ public class Cui {
 
                 case 2:
                     try {
-                        ui.escreveClienteCelularPlanoMenu("Remover", 2);
+                        ui.escreveClienteCelularPlanoMenu("Listar", 2);
                         System.in.read();
                     } catch (Exception e) {
 //                        e.printStackTrace();
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -83,7 +83,7 @@ public class Cui {
                         System.in.read();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t"+ e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     } catch (IOException e) {
@@ -97,7 +97,7 @@ public class Cui {
                         ui.escreveAdicionarCreditos();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -108,7 +108,7 @@ public class Cui {
                         ui.escreveRegistrarLigacao();
                     } catch (Exception e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();
                     }
@@ -120,7 +120,7 @@ public class Cui {
                         ui.escreveSaldoConta(1);
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
                     }
@@ -131,7 +131,7 @@ public class Cui {
                         ui.escreveSaldoConta(2);
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
 
@@ -143,7 +143,7 @@ public class Cui {
                         ui.escreveRegistroLigacoes();
                     } catch (CelularException e) {
                         System.out.println("**********************************************************");
-                        System.out.println("\t" + e);
+                        System.out.println("\t" + e.getMessage());
                         System.out.println("**********************************************************");
                         in.nextLine();in.nextLine();
                     }
@@ -265,11 +265,6 @@ public class Cui {
                 System.out.printf("Endereço: ");
                 String end = in.nextLine();
 
-//                System.out.printf("Telefone: ");
-//                String tel = in.nextLine();
-
-//                Cliente client = new Cliente(nome, cpf, end);
-
                 operadora.cadastrarCliente(nome, cpf, end);
 
                 System.out.println(String.format("\nCliente %s adicionado com sucesso. \nPressione ENTER para continuar", nome));
@@ -356,6 +351,7 @@ public class Cui {
 
                     System.out.printf("Dia do mês para vencimento da conta: ");
                     diaVencimento = in.nextInt();
+                    in.nextLine();
 
                 } else if(tipo.equals(1))
                     tipoString = "Cartao";
@@ -364,7 +360,7 @@ public class Cui {
 
                 System.out.println("\nCelular adicionado com sucesso. \nPressione ENTER para continuar");
                 in.nextLine();
-
+				
             } else if (whatToDo == 2) {
 
                 List<Celular> celulares = operadora.getCelulares();
@@ -415,8 +411,6 @@ public class Cui {
         System.out.printf("Número: ");
         Integer numero = in.nextInt();
         in.nextLine();
-//        System.out.printf("Preço por minuto (0.00): ");
-//        String valorMinuto = in.nextLine();
 
         operadora.excluirCelular(numero);
 
@@ -472,7 +466,7 @@ public class Cui {
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("**********************************************************");
-            System.out.println("\t" + e);
+            System.out.println("\t" + e.getMessage());
             System.out.println("**********************************************************");
             in.nextLine();
         }
@@ -575,7 +569,7 @@ public class Cui {
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("**********************************************************");
-            System.out.println("\t" + e);
+            System.out.println("\t" + e.getMessage());
             System.out.println("**********************************************************");
             in.nextLine();
         }

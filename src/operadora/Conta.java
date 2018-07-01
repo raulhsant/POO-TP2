@@ -5,10 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.CelularException;
-import sun.util.calendar.Gregorian;
-
+	
 public class Conta extends Celular {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1134267335084528470L;
+	
 	private Integer diaVencimento;
 //	private List<Ligacao> ligacoes;
 	
@@ -60,9 +64,6 @@ public class Conta extends Celular {
 		GregorianCalendar nowGregCal = new GregorianCalendar();
 		GregorianCalendar vencimento = new GregorianCalendar( nowGregCal.get(GregorianCalendar.YEAR), nowGregCal.get(GregorianCalendar.MONTH), this.diaVencimento);
 
-		int teste = nowGregCal.get(GregorianCalendar.DAY_OF_MONTH);
-		int teste2 = nowGregCal.get(GregorianCalendar.YEAR);
-
 		if(nowGregCal.get(GregorianCalendar.DAY_OF_MONTH) > this.diaVencimento) {
 
 			vencimento.set(GregorianCalendar.MONTH, nowGregCal.get(GregorianCalendar.MONTH)+1);
@@ -93,7 +94,7 @@ public class Conta extends Celular {
 		}
 
 
-		return this.getValor();
+		return resposta;
 	}
 	
 }
